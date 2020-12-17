@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="4">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="ID_No"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_column="0"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="F_NAME"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_column="1"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="L_NAME"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_column="2"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="4">
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="ID_No"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_column="0"/>
+            <TextView
+                android:id="@+id/f_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="F_NAME"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_column="1"/>
+            <TextView
+                android:id="@+id/l_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="L_NAME"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_column="2"/>
+        </TableRow>
+
+        <LinearLayout
+            android:layout_height="42dp"
+            android:layout_margin="8dp"
+            android:padding="1dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content">
+
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:backgroundTint="#4CAF50"
+                android:text="Edit"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:backgroundTint="@color/red"
+                android:text="Delete"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </TableLayout>
+
+</LinearLayout>

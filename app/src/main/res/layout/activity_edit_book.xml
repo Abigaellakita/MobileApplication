@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".EditBookActivity">
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"/>
+    <androidx.cardview.widget.CardView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/book_image"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:paddingBottom="2dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="false"
+                android:onClick="chooseImage"
+                android:src="@drawable/ic_mood"
+
+                />
+            <EditText
+                android:id="@+id/books_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Title"
+
+                />
+            <EditText
+                android:id="@+id/books_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Description"
+                />
+            <EditText
+                android:id="@+id/books_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Language Id"/>
+            <EditText
+                android:id="@+id/books_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Author Id"
+
+                />
+            <EditText
+                android:id="@+id/books_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Category Id"/>
+            <EditText
+                android:id="@+id/books_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Price"
+
+                />
+            <EditText
+                android:id="@+id/books_number_pages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Pages"/>
+            <EditText
+                android:id="@+id/books_release_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Release Year"/>
+
+            <EditText
+                android:id="@+id/books_isbn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book ISBN"
+                />
+            <EditText
+                android:id="@+id/books_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Status"
+                />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Update"
+        android:id="@+id/edit"/>
+
+
+</LinearLayout>

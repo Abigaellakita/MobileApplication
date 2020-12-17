@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:title="Shop by Categories">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_romance"
+                    android:title="Action and Adventure"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_arts"
+                    android:title="Comic"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_computer"
+                    android:title="Detective and Mystery"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_fiction"
+                    android:title="Fantasy"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_horror"
+                    android:title="Horror"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_rom"
+                    android:title="Romance"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_Sci_fi"
+                    android:title="Science Fiction"
+                    android:icon="@drawable/home_ic" />
+                <item
+                    android:id="@+id/nav_religious"
+                    android:title="Religious"
+                    android:icon="@drawable/home_ic" />
+            </group>
+        </menu>
+    </item>
+
+
+    <item android:title="Help and Settings">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/passicon"
+                    android:title="Your Account" />
+                <item
+                    android:id="@+id/nav_language"
+                    android:icon="@drawable/emailicon"
+                    android:title="Language" />
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/passicon"
+                    android:title="Logout" />
+            </group>
+        </menu>
+    </item>
+
+
+
+</menu>

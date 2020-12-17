@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InsertLanguageActivity">
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add new Language"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="@color/app_backGd"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/cat_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="48dp"
+        android:hint="Language Name"
+        android:inputType="text"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/insert_btn"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cat_Name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:gravity="center"
+        android:text="Insert Data"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/view_btn"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/insert_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:gravity="center"
+        android:text="View Data"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/back_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+       android:src="@drawable/ic_baseline_arrow_back_24" />
+
+</RelativeLayout>

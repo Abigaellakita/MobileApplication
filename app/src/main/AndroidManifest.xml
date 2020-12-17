@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ebook_system">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Ebook_System">
+        <activity android:name=".EditBookActivity"></activity>
+        <activity android:name=".EditAuthorActivity" />
+        <activity android:name=".EditLanguageActivity" />
+        <activity android:name=".ShowAuthorsActivity" />
+        <activity android:name=".ShowLanguageActivity" />
+        <activity android:name=".ShowLanguagesActivity" />
+        <activity android:name=".InsertLanguageActivity" />
+        <activity android:name=".InsertAuthorActivity" />
+        <activity android:name=".MoreDetailsAboutTheBookForUsersActivity" />
+        <activity android:name=".ShowBooksUnderSingleCategoryActivity" />
+        <activity android:name=".InsertBookContentActivity" />
+        <activity
+            android:name=".ReadBookActivity"
+            android:label="@string/title_activity_read_book"
+            android:theme="@style/Theme.Ebook_System.NoActionBar" />
+        <activity android:name=".ShowSingleBookActivity" />
+        <activity android:name=".EditCategoryActivity" />
+        <activity android:name=".ShowCategoriesActivity" />
+        <activity android:name=".InsertCategoryActivity" />
+        <activity android:name=".ShowAllBooksActivity" />
+        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".InsertBookActivity" />
+        <activity android:name=".DashboardActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

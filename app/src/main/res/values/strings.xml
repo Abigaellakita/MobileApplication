@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Ebook_System</string>
+    <string name="logout">Logout</string>
+    <string name="dashboard">This is my Dashboard</string>
+    <string name="email">Enter your Email ...</string>
+    <string name="password">Enter your Password ...</string>
+    <string name="confirmPass">Confirm Password ...</string>
+    <string name="navigation_drawer_open">Open Navigation drawer</string>
+    <string name="navigation_drawer_close">Close Navigation drawer</string>
+    <string name="key_image">KEY_IMAGE</string>
+    <string name="title_activity_read_book">ReadBookActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_insert_book_content">InsertBookContentActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+</resources>
