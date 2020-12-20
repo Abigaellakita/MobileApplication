@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.ebook_system.helper.DBHelper;
+import com.example.ebook_system.helper.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,14 +102,23 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             if(password.equals(confirm_pass)){
-                Boolean checkUser = DB.checkEmail(email);
+                User user_email = new User(email);
+                Boolean checkUser = DB.checkEmail(user_email);
                 if(checkUser == false){
-                    Boolean insert = DB.insertData(email, password);
+                    User user_email_password = new User(email, password);
+                    Boolean insert = DB.insertData(user_email_password);
                     if(insert==true){
-                        Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                        intent.putExtra("email", email);
-                        startActivity(intent);
+                        if (email.equals("mango@gmail.com") && password.equals("Mango123")){
+                            Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, ShowLanguagesActivity.class);
+                            intent.putExtra("email", email);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                            intent.putExtra("email", email);
+                            startActivity(intent);
+                        }
 
                     }
                     else {

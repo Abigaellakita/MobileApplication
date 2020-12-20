@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ebook_system.helper.DBHelper;
+import com.example.ebook_system.helper.User;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText emailEt, passwordEt;
@@ -52,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 else {
-                    Boolean checkEmailPassword = DB.checkEmailPassword(email, password);
+                    User user_email_password = new User(email, password);
+                    Boolean checkEmailPassword = DB.checkEmailPassword(user_email_password);
                     if(checkEmailPassword == true) {
                         if (email.equals("mango@gmail.com") && password.equals("Mango123")) {
                             Toast.makeText(LoginActivity.this, "Signed in successfully", Toast.LENGTH_SHORT).show();

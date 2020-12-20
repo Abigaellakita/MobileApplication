@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ebook_System">
-        <activity android:name=".EditBookActivity"></activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".AddToCartActivity" />
+        <activity android:name=".EditBookActivity" />
         <activity android:name=".EditAuthorActivity" />
         <activity android:name=".EditLanguageActivity" />
         <activity android:name=".ShowAuthorsActivity" />
@@ -31,11 +35,12 @@
         <activity android:name=".ShowAllBooksActivity" />
         <activity android:name=".ProductDetailsActivity" />
         <activity android:name=".InsertBookActivity" />
-        <activity android:name=".DashboardActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
+        <activity
+            android:name=".DashboardActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,11 +49,7 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

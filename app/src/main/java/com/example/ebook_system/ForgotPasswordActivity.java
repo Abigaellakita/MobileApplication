@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ebook_system.helper.DBHelper;
+import com.example.ebook_system.helper.User;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText emailEt;
@@ -39,7 +40,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                else
                 {
                     if(!TextUtils.isEmpty(email) && isValidEmail(email) ) {
-                        Boolean checkEmail = DB.checkEmail(email);
+                        User user_email = new User(email);
+                        Boolean checkEmail = DB.checkEmail(user_email);
                         if (checkEmail == true) {
                             Intent intent = new Intent(ForgotPasswordActivity.this, ResetPasswordActivity.class);
                             intent.putExtra("email", email);

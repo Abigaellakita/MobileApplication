@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_back"
     tools:context=".ShowLanguageActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@color/orange"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:text="All languages"

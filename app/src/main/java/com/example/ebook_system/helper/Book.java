@@ -22,6 +22,7 @@ public class Book {
     String authorFName;
     String authorLName;
     String language;
+    String book_url;
 
     public Book() {
     }
@@ -144,6 +145,44 @@ public class Book {
         this.category_name = category_name;
         this.authorFName = authorFName;
         this.language = language;
+    }
+
+    public Book(String title, String desc, String release_year, int number_of_pages, float price, String ISBN, Bitmap image, int cat_id, int author_id, int language_id, String book_url) {
+        Title = title;
+        this.desc = desc;
+        this.release_year = release_year;
+        this.number_of_pages = number_of_pages;
+        this.price = price;
+        this.ISBN = ISBN;
+        this.image = image;
+        this.cat_id = cat_id;
+        this.author_id = author_id;
+        this.language_id = language_id;
+        this.book_url = book_url;
+    }
+
+    public Book(int book_id, String title, String desc, String release_year, int number_of_pages, float price, String ISBN, int status, Bitmap image, int cat_id, int author_id, int language_id, String book_url) {
+        this.book_id = book_id;
+        Title = title;
+        this.desc = desc;
+        this.release_year = release_year;
+        this.number_of_pages = number_of_pages;
+        this.price = price;
+        this.ISBN = ISBN;
+        this.status = status;
+        this.image = image;
+        this.cat_id = cat_id;
+        this.author_id = author_id;
+        this.language_id = language_id;
+        this.book_url = book_url;
+    }
+
+    public String getBook_url() {
+        return book_url;
+    }
+
+    public void setBook_url(String book_url) {
+        this.book_url = book_url;
     }
 
     public int getAuthor_id() {

@@ -21,13 +21,18 @@ import com.example.ebook_system.helper.DBHelper;
 public class InsertBookActivity extends AppCompatActivity {
 
     EditText book_title, book_desc, book_release_year, book_price, book_languageId,
-    book_categoryId, book_authorId, book_pages, book_isbn;
+    book_categoryId, book_authorId, book_pages, book_isbn; //books_path;
     ImageView book_image, back_btn;
-    Button insert,show_books_data ;
+    Button insert,show_books_data, pick_book_pdf ;
+    //TextView books_pdf;
     private static final int PICK_IMAGE_REQUEST = 100;
+    private static final int PICK_PDF_REQUEST = 10;
     private Uri imageFilePath;
+    //private Uri bookFilePath;
     private Bitmap imageToStore;
+    //private String bookPath;
     DBHelper DB;
+
     //Button show_books;
 
     @Override
@@ -49,6 +54,26 @@ public class InsertBookActivity extends AppCompatActivity {
         book_isbn = findViewById(R.id.books_isbn);
         book_pages = findViewById(R.id.books_number_pages);
         insert = findViewById(R.id.insert);
+        //books_path = findViewById(R.id.books_path);
+        //books_pdf = findViewById(R.id.books_pdf);
+        //pick_book_pdf = findViewById(R.id.book_pdf);
+        /*pick_book_pdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent myBookFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    myBookFileIntent.setType("application/pdf");
+
+                    startActivityForResult(myBookFileIntent, PICK_PDF_REQUEST);
+                }
+                catch (Exception e){
+                    Toast.makeText(InsertBookActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });*/
+
         show_books_data = findViewById(R.id.show_books_data);
         show_books_data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +101,7 @@ public class InsertBookActivity extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(InsertBookActivity.this, DashboardActivity.class);
+                Intent intent1 = new Intent(InsertBookActivity.this, ShowLanguagesActivity.class);
                 startActivity(intent1);
                 finish();
             }
@@ -87,8 +112,10 @@ public class InsertBookActivity extends AppCompatActivity {
         try {
             Intent bookImg = new Intent();
             bookImg.setType("image/*");
+            //bookImg.setType("pdf");
             bookImg.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(bookImg, PICK_IMAGE_REQUEST);
+
 
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -97,19 +124,38 @@ public class InsertBookActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         try {
-            super.onActivityResult(requestCode, resultCode, data);
-            if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data != null && data.getData() != null ){
-                  imageFilePath=data.getData();
-                  imageToStore= MediaStore.Images.Media.getBitmap(getContentResolver(),imageFilePath);
+            //super.onActivityResult(requestCode, resultCode, data);
+            switch (requestCode){
+                case PICK_IMAGE_REQUEST :
+                    if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+                        imageFilePath = data.getData();
+                        imageToStore = MediaStore.Images.Media.getBitmap(getContentResolver(), imageFilePath);
+                        book_image.setImageBitmap(imageToStore);
+                    }
+                    break;
+                /*case PICK_PDF_REQUEST :
+                    if(requestCode == PICK_PDF_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
 
-                  book_image.setImageBitmap(imageToStore);
-            }
+                        bookPath = data.getData().getPath();
+                        books_pdf.setText(bookPath);
+
+                        Uri uri = data.getData();
+                        File file = new File(uri.getPath());
+                        file.getName();
+                        bookPath = uri.getPath();
+                        books_pdf.setText(bookPath);
+
+                    }
+                    break;*/
+        }
         }
         catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
     public void createBook(){
         try {
             String title = book_title.getText().toString();
@@ -122,6 +168,8 @@ public class InsertBookActivity extends AppCompatActivity {
             int author = Integer.parseInt(book_authorId.getText().toString());
             //long category = Long.parseLong(String.valueOf(Long.parseLong(book_categoryId.getText().toString())));
             int category = Integer.parseInt(book_categoryId.getText().toString());
+            //String booksPath = books_path.getText().toString();
+            String booksPath = title+".pdf";
 
 
             if(TextUtils.isEmpty(title)) {
@@ -163,8 +211,14 @@ public class InsertBookActivity extends AppCompatActivity {
             else if(book_image.getDrawable() == null && imageToStore ==null){
                 Toast.makeText(this, "Book Image is required", Toast.LENGTH_SHORT).show();
             }
+            /*else if(TextUtils.isEmpty(booksPath)){
+                books_path.setError("Book file name is required");
+            }
+            //else if(books_pdf.getText()==null){
+              //  Toast.makeText(this, "Book File is required", Toast.LENGTH_SHORT).show();
+            }*/
             else {
-                DB.insertBook(new Book(title,desc,year,pages,price,isbn,imageToStore, category,author,language));
+                DB.insertBook(new Book(title,desc,year,pages,price,isbn,imageToStore, category,author,language,booksPath));
                 Toast.makeText(InsertBookActivity.this, "", Toast.LENGTH_SHORT).show();
                 startActivity(getIntent());
                 //Category cat = new Category("Romance");
@@ -175,7 +229,7 @@ public class InsertBookActivity extends AppCompatActivity {
             }
 
         }catch (Exception e){
-            Toast.makeText(this, "Please Select an Image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Fill in the required fields", Toast.LENGTH_SHORT).show();
         }
     }
 

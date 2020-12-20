@@ -71,7 +71,7 @@ public class PlaceholderFragment extends Fragment {
         bookContentArrayList.clear();
         DB = new DBHelper(getContext());
         DB.openDataBase();
-        bookContentArrayList = DB.getBookContent();
+        //bookContentArrayList = DB.getBookContent();
 
 
 

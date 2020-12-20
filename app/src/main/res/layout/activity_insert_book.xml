@@ -41,6 +41,7 @@
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:padding="8dp"
+                android:inputType="text"
                 android:hint="Enter the Book Title"
 
                 />
@@ -51,6 +52,7 @@
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:padding="8dp"
+                android:inputType="textLongMessage"
                 android:hint="Enter the Book Description"
                 />
             <EditText
@@ -59,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:inputType="number"
                 android:padding="8dp"
                 android:hint="Enter the Book Language Id"/>
             <EditText
@@ -66,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:inputType="number"
                 android:textStyle="bold"
                 android:padding="8dp"
                 android:hint="Enter the Book Author Id"
@@ -77,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:inputType="number"
                 android:padding="8dp"
                 android:hint="Enter the Book Category Id"/>
             <EditText
@@ -85,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:hint="Enter the Book Price"
 
@@ -95,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:inputType="number"
                 android:padding="8dp"
                 android:hint="Enter the Book Pages"/>
             <EditText
@@ -104,6 +111,7 @@
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:padding="8dp"
+                android:inputType="number"
                 android:hint="Enter the Book Release Year"/>
 
             <EditText
@@ -112,25 +120,61 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:inputType="text|number"
+                android:textAllCaps="true"
                 android:padding="8dp"
                 android:hint="Enter the Book ISBN"
                  />
+            <!--
+            <EditText
+                android:id="@+id/books_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:hint="Enter the Book Path"
+                />
+                -->
 
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Pick Book Pdf"
+            android:id="@+id/book_pdf"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="32dp"
+            />
+
+    </LinearLayout>
+     -->
+
     <Button
+        android:id="@+id/insert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:backgroundTint="@color/orange"
         android:text="Insert"
-        android:id="@+id/insert"/>
+        />
+
     <Button
+        android:id="@+id/show_books_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Show Data"
-        android:backgroundTint="@color/grey"
-        android:id="@+id/show_books_data"/>
+        android:backgroundTint="@color/black"
+        android:text="Show Data" />
 
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ebook_system.helper.DBHelper;
+import com.example.ebook_system.helper.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +68,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 }
                 else {
                     if (password.equals(confirm_pass)) {
-                        Boolean checkPassUpdate = DB.updatePassword(email, password);
+                        User user_email_password = new User(email, password);
+                        Boolean checkPassUpdate = DB.updatePassword(user_email_password);
                         if (checkPassUpdate == true) {
                             Toast.makeText(ResetPasswordActivity.this, "Password Updated successfully", Toast.LENGTH_SHORT).show();
                             Intent intent1 = new Intent(ResetPasswordActivity.this, LoginActivity.class);

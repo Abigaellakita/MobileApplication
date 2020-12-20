@@ -7,35 +7,38 @@
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
+    android:background="@drawable/login_back"
     android:orientation="vertical"
     android:padding="8dp">
 
 
     <Button
         android:id="@+id/moreDetailsBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/grey"
-        android:text="More"
+        android:backgroundTint="@color/black"
+        android:text="Read"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageBook"
         app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
+
 
     <Button
         android:id="@+id/AddCartBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="13dp"
-        android:backgroundTint="@color/green"
-        android:text="Add to cart"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/orange"
+        android:text="Add to Cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/moreDetailsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategory"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageBook"
@@ -47,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/book8"
-        android:background="@color/grey"/>
+        android:background="@color/orange"/>
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -55,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/blue"
+        android:textColor="@color/orange"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/textViewAuthorFName"
@@ -84,7 +87,8 @@
         android:layout_marginEnd="8dp"
         android:background="#FFFFFF"
         android:text="English"
-        android:textColor="#4CAF50"
+        android:textStyle="bold"
+        android:textColor="@color/orange"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAuthorLName" />
@@ -146,8 +150,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="by "
-        android:textColor="@color/blue"
+        android:textColor="@color/black"
         android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageBook"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 

@@ -11,12 +11,15 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ebook_system.DashboardActivity;
 import com.example.ebook_system.MoreDetailsAboutTheBookForUsersActivity;
 import com.example.ebook_system.R;
+import com.example.ebook_system.ReadBookActivity;
 import com.example.ebook_system.helper.Book;
 import com.example.ebook_system.helper.DBHelper;
 
@@ -29,19 +32,17 @@ public class ShowBooksForUsersAdapter extends RecyclerView.Adapter<ShowBooksForU
     List<Book> bookList;
     DBHelper DB;
     List<Book> bookListFull;
+    DashboardActivity dashboardActivity;
+
 
     public ShowBooksForUsersAdapter(Context context, List<Book> bookList){
         this.context = context;
         this.bookList = bookList;
         DB = new DBHelper(context);
         bookListFull = new ArrayList<>(bookList);
+        dashboardActivity = new DashboardActivity();
     }
 
-    /*public ShowBooksForUsersAdapter(Context context, List<Book> bookList, List<Category> categoryList) {
-        this.context = context;
-        this.bookList = bookList;
-        this.categoryList = categoryList;
-    }*/
 
     @NonNull
     @Override
@@ -50,10 +51,6 @@ public class ShowBooksForUsersAdapter extends RecyclerView.Adapter<ShowBooksForU
         return new ShowBooksForUsersViewHolder(view);
 
 
-        /*LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.show_books_row_items, parent,false);
-        ShowBooksViewHolder viewHolder = new ShowBooksViewHolder(view);
-        return viewHolder ;*/
     }
 
     @Override
@@ -69,10 +66,38 @@ public class ShowBooksForUsersAdapter extends RecyclerView.Adapter<ShowBooksForU
         holder.language.setText(book.getLanguage());
         holder.price.setText(Float.toString(book.getPrice()));
         holder.category.setText(book.getCategory_name());
+        holder.moreDetailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ReadBookActivity.class);
+                intent.putExtra("BookUrl", bookList.get(position).getBook_url());
+                context.startActivity(intent);
+            }
+        });
 
         holder.addCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int id = bookList.get(position).getBook_id();
+                String user_email = dashboardActivity.user_email;
+                boolean checkIfItemExists = DB.checkCartItem(id, user_email);
+                if(!checkIfItemExists){
+                    //final User user = userList.
+                    boolean insertItem =DB.insertCartItem(id, user_email);
+                    if(insertItem){
+                        Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(context, "Not Added to Cart", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(context, "Item already added to cart", Toast.LENGTH_SHORT).show();
+                }
+                //String strName = holder.cat_name.getText().toString();
+                //DB.updateCat(new Category(category.getCat_id(), strName));
+                //Intent intent1 = new Intent(context, AddToCartActivity.class);
+                //intent1.putExtra("book_id", bookList.get(position).getBook_id());
+                //context.startActivity(intent1);
 
             }
         });

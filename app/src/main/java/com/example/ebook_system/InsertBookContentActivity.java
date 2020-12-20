@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ebook_system.helper.DBHelper;
-import com.example.ebook_system.model.BookContent;
 
 public class InsertBookContentActivity extends AppCompatActivity {
     EditText mPageTv, mChapterTv, mTitleTv, mDetailTv, mBook;
@@ -69,7 +68,7 @@ public class InsertBookContentActivity extends AppCompatActivity {
             }
 
             else {
-                DB.insertBookContent(new BookContent(pageNo,chapter,title,details,book));
+                //DB.insertBookContent(new BookContent(pageNo,chapter,title,details,book));
 
             }
 

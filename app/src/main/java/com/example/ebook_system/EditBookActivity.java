@@ -21,7 +21,7 @@ import com.example.ebook_system.helper.DBHelper;
 
 public class EditBookActivity extends AppCompatActivity {
     TextView book_title, book_desc, book_release_year, book_price, book_languageId,
-            book_categoryId, book_authorId, book_pages, book_isbn, book_status;
+            book_categoryId, book_authorId, book_pages, book_isbn, book_status, books_path;
     ImageView book_image, back_btn;
     Button updateButton,show_books_data ;
     private static final int PICK_IMAGE_REQUEST = 100;
@@ -46,12 +46,22 @@ public class EditBookActivity extends AppCompatActivity {
         book_isbn = findViewById(R.id.books_isbn);
         book_pages = findViewById(R.id.books_number_pages);
         book_status=findViewById(R.id.books_status);
+        books_path=findViewById(R.id.books_path);
+        back_btn= findViewById(R.id.back_btn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentBack = new Intent(EditBookActivity.this, ShowAllBooksActivity.class);
+                startActivity(intentBack);
+            }
+        });
 
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String desc = intent.getStringExtra("desc");
         String year = intent.getStringExtra("year");
         String isbn = intent.getStringExtra("isbn");
+        String bookPath = intent.getStringExtra("BookUrl");
         int id = intent.getIntExtra("id", 0);
         int cat_id = intent.getIntExtra("category_id", 0);
         int language_id = intent.getIntExtra("language_id", 0);
@@ -70,6 +80,7 @@ public class EditBookActivity extends AppCompatActivity {
         book_authorId.setText(Integer.toString(author_id));
         book_price.setText(Float.toString(price));
         book_status.setText(Integer.toString(status));
+        books_path.setText(bookPath);
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(intent.getByteArrayExtra("image"), 0, intent.getByteArrayExtra("image").length);
         book_image.setImageBitmap(bitmap);
@@ -91,6 +102,7 @@ public class EditBookActivity extends AppCompatActivity {
                     int author = Integer.parseInt(book_authorId.getText().toString());
                     int status = Integer.parseInt(book_status.getText().toString());
                     int category = Integer.parseInt(book_categoryId.getText().toString());
+                    String book_Path = books_path.getText().toString();
 
 
                     if(TextUtils.isEmpty(title)) {
@@ -129,11 +141,14 @@ public class EditBookActivity extends AppCompatActivity {
                         book_categoryId.setError("Category Id is required");
                         return;
                     }
+                    else if(TextUtils.isEmpty(book_Path)){
+                        books_path.setText(title+".pdf");
+                    }
                     /*else if(book_image.getDrawable() == null || imageToStore ==null){
                         Toast.makeText(EditBookActivity.this, "Book Image is required", Toast.LENGTH_SHORT).show();
                     }*/
                     else {
-                        DB.updateBook(new Book(id, title,desc,year,pages,price,isbn,status,imageToStore, category,author,language));
+                        DB.updateBook(new Book(id, title,desc,year,pages,price,isbn,status,imageToStore, category,author,language, book_Path));
                         Toast.makeText(EditBookActivity.this, "", Toast.LENGTH_SHORT).show();
                         Intent intent1 = new Intent(EditBookActivity.this, ShowAllBooksActivity.class);
                         startActivity(intent1);

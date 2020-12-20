@@ -4,24 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/login_back"
     tools:context=".MoreDetailsAboutTheBookForUsersActivity">
 
-    <Button
-        android:id="@+id/buy_now"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/app_backGd"
-        android:text="Buy Now"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        app:backgroundTint="@color/app_backGd"
-        app:layout_constraintBottom_toBottomOf="@+id/cart_imageV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cart_imageV"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <ImageView
         android:id="@+id/back_btn1"
@@ -34,11 +19,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/shopping_cart"
+        android:id="@+id/view_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_shopping_cart"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
         app:layout_constraintBottom_toBottomOf="@+id/textView16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView16" />
@@ -51,20 +36,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/orange"
         app:layout_constraintTop_toBottomOf="@+id/back_btn1"
         app:srcCompat="@drawable/book7" />
 
-    <ImageView
-        android:id="@+id/cart_imageV"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/blue"
-        app:layout_constraintEnd_toStartOf="@+id/buy_now"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/book_det_isbn"
-        app:srcCompat="@drawable/cartbutton" />
+
 
     <TextView
         android:id="@+id/textView16"
@@ -74,6 +50,7 @@
         android:text="Book Details"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/back_btn1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.468"
@@ -86,12 +63,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/open_sans"
         android:text="Title"
-        android:textColor="@color/black"
+        android:textColor="@color/orange"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,11 +80,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="Desc"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +95,7 @@
         android:layout_width="153dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="      ISBN :"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/book_det_isbn"
@@ -128,10 +106,11 @@
         android:id="@+id/book_det_isbn"
         android:layout_width="225dp"
         android:layout_height="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_det_desc" />
 </androidx.constraintlayout.widget.ConstraintLayout>

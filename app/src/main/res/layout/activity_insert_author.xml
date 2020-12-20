@@ -1,75 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/login_back"
+    android:paddingHorizontal="30dp"
     tools:context=".InsertAuthorActivity">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="-380dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/orange"
+        android:src="@drawable/ic_baseline_arrow_back_24" />
+
+    <ImageView
+        android:id="@+id/login_appLogo"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-300dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/book_logo" />
+
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add new Book Category"
+        android:id="@+id/signIn_textView"
+        android:layout_width="254dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/login_appLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="Add New Author"
         android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@color/app_backGd"
-        android:layout_marginTop="16dp"/>
+        android:textColor="@color/orange"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/author_fName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textTitle"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="48dp"
-        android:hint="Author First Name"
-        android:inputType="text"
-        android:textSize="18sp" />
+        android:layout_below="@id/signIn_textView"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/input_design"
+        android:hint="Enter Author FirstName ..."
+        android:inputType="textPersonName"
+        android:padding="20dp"
+        android:textColor="@color/orange"
+        android:textColorHint="@color/orange"
+        android:textSize="17sp"
+        android:textStyle="bold">
+
+        <requestFocus />
+    </EditText>
+
     <EditText
         android:id="@+id/author_lName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/author_fName"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="48dp"
-        android:hint="Author Last Name"
-        android:inputType="text"
-        android:textSize="18sp" />
+        android:hint="Enter Author LastName ..."
+        android:layout_below="@+id/author_fName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="14dp"
+        android:textColor="@color/orange"
+        android:inputType="textPersonName"
+        android:padding="20dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:background="@drawable/input_design"
+        android:textColorHint="@color/orange"
+        />
 
     <Button
         android:id="@+id/insert_btn"
-        android:layout_width="212dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/author_lName"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="83dp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="1dp"
+        android:textStyle="bold"
         android:text="Insert Data"
-        android:textSize="24sp" />
-
+        android:textColor="@color/white"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/buttons"
+        android:layout_below="@id/author_lName"
+        android:textSize="17dp"
+        android:textAllCaps="false"
+        />
     <Button
         android:id="@+id/view_btn"
-        android:layout_width="212dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/insert_btn"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="80dp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="1dp"
+        android:textStyle="bold"
         android:text="View Data"
-        android:textSize="24sp" />
+        android:textColor="@color/white"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/buttons"
+        android:layout_below="@id/insert_btn"
+        android:textSize="17dp"
+        android:textAllCaps="false"
+        />
 
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/ic_baseline_arrow_back_24" />
+
+
 
 </RelativeLayout>

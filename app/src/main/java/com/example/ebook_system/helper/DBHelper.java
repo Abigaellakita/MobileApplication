@@ -10,14 +10,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
-import com.example.ebook_system.model.BookContent;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,9 +36,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_CATEGORY = "categories";
     public static final String TABLE_BOOK = "books";
-    public static final String TABLE_BOOK_CONTENT ="book_content";
+    //public static final String TABLE_BOOK_CONTENT ="book_content";
     public static final String TABLE_AUTHOR ="authors";
     public static final String TABLE_LANGUAGE ="languages";
+    public static final String TABLE_USER ="users";
+    public static final String TABLE_CART_ITEMS = "cart_items";
 
 
     // Common column names
@@ -49,10 +51,36 @@ public class DBHelper extends SQLiteOpenHelper {
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] imageInBytes;
 
+    //Users Table -columns names
+    //public static final String KEY_USER_ID ="user_id";
+    public static final String KEY_USER_EMAIL = "user_email";
+    public static final String KEY_USER_PASSWORD = "password";
 
+
+    // USERS Table create statement
+
+    private String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER
+            + " (" + KEY_USER_EMAIL + " TEXT PRIMARY KEY," +
+            KEY_USER_PASSWORD + " TEXT," +
+            KEY_LAST_UPDATED + " DATETIME," +
+            KEY_CREATED_AT + " DATETIME )";
+    //Drop table users
+    private final String DROP_TABLE_USER = "DROP TABLE IF EXISTS " + TABLE_USER;
     //CATEGORY Table - column names
     public static final String KEY_CATEGORY_ID = "category_id";
     public static final String KEY_CATEGORY_NAME = "category_name";
+
+    // CART_ITEMS Table columns
+    public static final  String KEY_ITEM_ID = "book_id";
+    public static final String KEY_EMAIL = "user_email";
+
+    //create table CART ITEMS statement
+    private String CREATE_TABLE_CART_ITEMS = "CREATE TABLE " + TABLE_CART_ITEMS
+            + " (" + KEY_ITEM_ID + " INTEGER REFERENCES " + TABLE_BOOK + " , " +
+            KEY_EMAIL + " TEXT REFERENCES " + TABLE_USER + " , " +
+            KEY_LAST_UPDATED + " DATETIME," +
+            KEY_CREATED_AT + " DATETIME )";
+    private final String DROP_TABLE_CART_ITEMS = "DROP TABLE IF EXISTS " + TABLE_CART_ITEMS;
 
     // Category table create statement
     private String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY
@@ -105,6 +133,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_CAT_ID = "category_id";
     public static final String AUTHOR_ID = "author_id";
     public static final String LANGUAGE_ID = "language_id";
+    public static final String KEY_BOOK_CONTENT = "book_pdf";
 
     // Book table create statement
     private String CREATE_TABLE_BOOK = "CREATE TABLE " + TABLE_BOOK
@@ -118,6 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
             KEY_RATING + " REAL, " +
             KEY_STATUS + " INTEGER, " +
             KEY_IMAGE + " BLOB, " +
+            KEY_BOOK_CONTENT + " TEXT, " +
             KEY_LAST_UPDATED + " DATETIME," +
             KEY_CREATED_AT + " DATETIME," +
             AUTHOR_ID + " INTEGER REFERENCES " + TABLE_AUTHOR + " , " +
@@ -130,6 +160,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private final String DROP_TABLE_BOOK = "DROP TABLE IF EXISTS " + TABLE_BOOK;
 
     //BookContent table -column names
+    /*
     public static final String KEY_ID = "PageNo";
     public static final String KEY_CHAPTER = "Chapter";
     public static final String KEY_CHAPTER_TITLE = "Title";
@@ -137,7 +168,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String BOOK_ID = "book_id";
 
     // create table bookContent statement
-    private String CREATE_TABLE_BOOK_CONTENT = "CREATE TABLE " + TABLE_BOOK_CONTENT
+    /*private String CREATE_TABLE_BOOK_CONTENT = "CREATE TABLE " + TABLE_BOOK_CONTENT
             + " (" + KEY_ID + " INTEGER," +
             KEY_CHAPTER + " TEXT," +
             KEY_CHAPTER_TITLE + " TEXT," +
@@ -145,25 +176,27 @@ public class DBHelper extends SQLiteOpenHelper {
             BOOK_ID + " INTEGER REFERENCES " + TABLE_BOOK +
             ");";
     // Drop table bookContent
-    private final String DROP_TABLE_BOOK_CONTENT = "DROP TABLE IF EXISTS " + TABLE_BOOK_CONTENT;
+    private final String DROP_TABLE_BOOK_CONTENT = "DROP TABLE IF EXISTS " + TABLE_BOOK_CONTENT;*/
 
 
 
 
     public DBHelper(Context context){
-        super(context, DBNAME, null, 14);
+        super(context, DBNAME, null, 19);
         this.context = context;
         mCtx = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase myDB) {
-        myDB.execSQL("create Table users(email TEXT primary key, password TEXT)");
+        //myDB.execSQL("create Table users(email TEXT primary key, password TEXT)");
+        myDB.execSQL(CREATE_TABLE_USER);
         myDB.execSQL(CREATE_TABLE_CATEGORY);
         myDB.execSQL(CREATE_TABLE_BOOK);
-        myDB.execSQL(CREATE_TABLE_BOOK_CONTENT);
+        //myDB.execSQL(CREATE_TABLE_BOOK_CONTENT);
         myDB.execSQL(CREATE_TABLE_AUTHOR);
         myDB.execSQL(CREATE_TABLE_LANGUAGE);
+        myDB.execSQL(CREATE_TABLE_CART_ITEMS);
 
 
 
@@ -171,19 +204,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase myDB, int i, int i1) {
-        myDB.execSQL("drop Table if exists users");
+        //myDB.execSQL("drop Table if exists users");
+        myDB.execSQL(DROP_TABLE_USER);
         myDB.execSQL(DROP_TABLE_CATEGORY);
         myDB.execSQL(DROP_TABLE_BOOK);
-        myDB.execSQL(DROP_TABLE_BOOK_CONTENT);
+        myDB.execSQL("drop Table if exists users1");
+        myDB.execSQL("drop Table if exists book_content");
         myDB.execSQL(DROP_TABLE_AUTHOR);
         myDB.execSQL(DROP_TABLE_LANGUAGE);
+        myDB.execSQL(DROP_TABLE_CART_ITEMS);
 
 
         //create new tables
         onCreate(myDB);
 
     }
-    public Boolean insertData(String email, String password){
+    /*public Boolean insertData(String email, String password){
         SQLiteDatabase myDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Email", email);
@@ -194,8 +230,56 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
 
 
+    }*/
+    public Boolean insertCartItem(int id, String email){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ITEM_ID, id);
+        contentValues.put(KEY_EMAIL, email);
+        contentValues.put(KEY_CREATED_AT, getDateTime());
+        contentValues.put(KEY_LAST_UPDATED, getDateTime());
+        long result = myDB.insert(TABLE_CART_ITEMS, null, contentValues);
+        if(result==-1) return false;
+        else
+            return true;
     }
-    public Boolean updatePassword(String email, String password){
+    public Boolean checkCartItem(int id, String email){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        String selectQuery ="SELECT  * FROM " + TABLE_CART_ITEMS + " WHERE " + KEY_ITEM_ID + " = ?" + " AND "
+                + KEY_EMAIL + " =? ";
+        //Cursor cursor = myDB.rawQuery("select * from users where email = ?", new String[] {email});
+        Cursor cursor = myDB.rawQuery(selectQuery, new String[] {String.valueOf(id), email});
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+
+    }
+    public Boolean insertData(User user){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_USER_EMAIL, user.getEmail());
+        contentValues.put(KEY_USER_PASSWORD, user.getPassword());
+        contentValues.put(KEY_CREATED_AT, getDateTime());
+        contentValues.put(KEY_LAST_UPDATED, getDateTime());
+        long result = myDB.insert(TABLE_USER, null, contentValues);
+        if(result==-1) return false;
+        else
+            return true;
+
+
+    }
+    public Boolean updatePassword(User user){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_USER_PASSWORD, user.getPassword());
+        contentValues.put(KEY_LAST_UPDATED, getDateTime());
+        long result = myDB.update(TABLE_USER, contentValues, KEY_USER_EMAIL + " = ?" , new String[] {user.getEmail()} );
+        if(result==-1) return false;
+        else
+            return true;
+    }
+    /*public Boolean updatePassword(String email, String password){
         SQLiteDatabase myDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Password", password);
@@ -203,8 +287,8 @@ public class DBHelper extends SQLiteOpenHelper {
         if(result==-1) return false;
         else
             return true;
-    }
-    public Boolean checkEmail(String email){
+    }*/
+    /*public Boolean checkEmail(String email){
         SQLiteDatabase myDB = this.getWritableDatabase();
         Cursor cursor = myDB.rawQuery("select * from users where email = ?", new String[] {email});
         if(cursor.getCount()>0)
@@ -212,8 +296,29 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return false;
 
+    }*/
+    public Boolean checkEmail(User user){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        String sqlQuery = " SELECT * FROM " + TABLE_USER + " WHERE " + KEY_USER_EMAIL + " = ? ";
+        Cursor cursor = myDB.rawQuery(sqlQuery, new String[] {user.getEmail()});
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+
     }
-    public Boolean checkEmailPassword(String email, String password){
+    public Boolean checkEmailPassword(User user){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        String sqlQuery = " SELECT * FROM " + TABLE_USER + " WHERE " + KEY_USER_EMAIL + " = ? AND "
+                + KEY_USER_PASSWORD + " = ? ";
+        Cursor cursor = myDB.rawQuery(sqlQuery, new String[]{user.getEmail(), user.getPassword()});
+        if(cursor.getCount()>0)
+            return  true;
+        else
+            return false;
+
+    }
+    /*public Boolean checkEmailPassword(String email, String password){
         SQLiteDatabase myDB = this.getWritableDatabase();
         Cursor cursor = myDB.rawQuery("select * from users where email = ? and password = ?", new String[]{email, password});
         if(cursor.getCount()>0)
@@ -221,7 +326,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return false;
 
-    }
+    }*/
     /*
      * Creating a book
      */
@@ -464,6 +569,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_CAT_ID, book.getCat_id());
         values.put(AUTHOR_ID, book.getAuthor_id());
         values.put(LANGUAGE_ID, book.getLanguage_id());
+        values.put(KEY_BOOK_CONTENT, book.getBook_url());
 
 
         try {
@@ -535,6 +641,18 @@ public class DBHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Couldn't delete this Book", Toast.LENGTH_SHORT).show();
         }
 
+    }
+    public void removeCartItem(int id, String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        try{
+
+            db.delete(TABLE_CART_ITEMS, KEY_ITEM_ID + " = ?" + " AND " + KEY_EMAIL + " = ?",
+                    new String[] { String.valueOf(id), email });
+            Toast.makeText(context, "Item removed", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Toast.makeText(context, "Couldn't remove item", Toast.LENGTH_SHORT).show();
+        }
 
     }
     public void deleteLanguage(int id) {
@@ -563,8 +681,50 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     }
-
     public void insertBook(Book book){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            Bitmap imageToStoreBitmap = book.getImage();
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            imageToStoreBitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+            imageInBytes = byteArrayOutputStream.toByteArray();
+            //bookPdfBytes = byteArrayOutputStream.toByteArray(book.getBook_url());
+
+            ContentValues values = new ContentValues();
+            values.put(KEY_TITLE, book.getTitle());
+            values.put(KEY_DESC, book.getDesc());
+            values.put(KEY_RELEASE_YEAR, book.getRelease_year());
+            values.put(KEY_NUMBER_OF_PAGES, book.getNumber_of_pages());
+            values.put(KEY_PRICE, book.getPrice());
+            values.put(KEY_ISBN, book.getISBN());
+            values.put(KEY_RATING, book.getRating());
+            values.put(KEY_STATUS, book.getStatus());
+            values.put(KEY_IMAGE, imageInBytes);
+            values.put(KEY_LAST_UPDATED, getDateTime());
+            values.put(KEY_CREATED_AT, getDateTime());
+            values.put(KEY_CAT_ID, book.getCat_id());
+            values.put(AUTHOR_ID, book.getAuthor_id());
+            values.put(LANGUAGE_ID, book.getLanguage_id());
+            values.put(KEY_BOOK_CONTENT, book.getBook_url());
+
+
+            long checkIfQueryRuns = db.insert(DBHelper.TABLE_BOOK, null, values);
+            if(checkIfQueryRuns !=-1){
+                Toast.makeText(context, "Data inserted", Toast.LENGTH_SHORT).show();
+                db.close();
+            }
+            else {
+                Toast.makeText(context, "Data not inserted", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }catch (Exception e){
+            Toast.makeText(context, "Could not insert Data, check if if you have selected the Image", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void insertBooks(Book book){
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             Bitmap imageToStoreBitmap = book.getImage();
@@ -628,6 +788,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 byte[] imageBytes = c.getBlob(c.getColumnIndex(KEY_IMAGE));
                 Bitmap objectBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 b.setImage(objectBitmap);
+                b.setBook_url(c.getString(c.getColumnIndex(KEY_BOOK_CONTENT)));
                 b.setAuthor_id(c.getInt(c.getColumnIndex(AUTHOR_ID)));
                 b.setLanguage_id(c.getInt(c.getColumnIndex(LANGUAGE_ID)));
                 b.setCat_id(c.getInt(c.getColumnIndex(KEY_CAT_ID)));
@@ -802,7 +963,8 @@ public class DBHelper extends SQLiteOpenHelper {
         List<Book> books = new ArrayList<Book>();
         String selectQuery = "SELECT tb. " + KEY_IMAGE + ", tb. "
                 + KEY_TITLE + ", tb. "
-                + KEY_DESC + ",tb. " + KEY_NUMBER_OF_PAGES + ",tb. "
+                + KEY_DESC  + ", tb. " + KEY_BOOK_ID + ", tb. " + KEY_ISBN + ", tb." + KEY_BOOK_CONTENT
+                + ",tb. " + KEY_NUMBER_OF_PAGES + ",tb. "
                 + KEY_RELEASE_YEAR + ", tb. " + KEY_PRICE
                 + ", ta. " + KEY_AUTHOR_fNAME + ", ta. " + KEY_AUTHOR_lNAME
                 + ", tl. " + KEY_LANGUAGE_NAME
@@ -833,6 +995,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 b.setAuthorLName(c.getString(c.getColumnIndex(KEY_AUTHOR_lNAME)));
 
                 //b.setDesc(c.getString(c.getColumnIndex(KEY_DESC)));
+                b.setBook_id(c.getInt(c.getColumnIndex(KEY_BOOK_ID)));
+                b.setISBN(c.getString(c.getColumnIndex(KEY_ISBN)));
+                b.setBook_url(c.getString(c.getColumnIndex(KEY_BOOK_CONTENT)));
 
 
                 books.add(b);
@@ -847,7 +1012,9 @@ public class DBHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT tb. " + KEY_IMAGE + ", tb. "
                 + KEY_TITLE + ", tb. "
                 + KEY_DESC
+                + ", tb. " + KEY_BOOK_ID
                 + ", tb. " + KEY_ISBN
+                + ",tb. " + KEY_BOOK_CONTENT
                 + ",tb. " + KEY_NUMBER_OF_PAGES + ",tb. "
                 + KEY_RELEASE_YEAR + ", tb. " + KEY_PRICE
                 + ", ta. " + KEY_AUTHOR_fNAME + ", ta. " + KEY_AUTHOR_lNAME
@@ -868,6 +1035,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Bitmap objectBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 b.setImage(objectBitmap);
                 b.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                b.setBook_id(c.getInt(c.getColumnIndex(KEY_BOOK_ID)));
                 b.setDesc(c.getString(c.getColumnIndex(KEY_DESC)));
                 b.setNumber_of_pages(c.getInt(c.getColumnIndex(KEY_NUMBER_OF_PAGES)));
 
@@ -881,6 +1049,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 b.setAuthorFName(c.getString(c.getColumnIndex(KEY_AUTHOR_fNAME)));
                 b.setAuthorLName(c.getString(c.getColumnIndex(KEY_AUTHOR_lNAME)));
 
+                b.setBook_url(c.getString(c.getColumnIndex(KEY_BOOK_CONTENT)));
+
                 //b.setDesc(c.getString(c.getColumnIndex(KEY_DESC)));
 
 
@@ -891,7 +1061,64 @@ public class DBHelper extends SQLiteOpenHelper {
         return books;
 
     }
-    public void insertBookContent(BookContent bookContent){
+    public List<Book> getCartItemsForUsers(String user_email){
+        List<Book> books = new ArrayList<Book>();
+        String selectQuery = "SELECT tb. " + KEY_IMAGE + ", tb. "
+                + KEY_TITLE + ", tb. "
+                + KEY_DESC
+                + ", tb. " + KEY_BOOK_ID
+                + ", tb. " + KEY_ISBN
+                + ",tb. " + KEY_BOOK_CONTENT
+                + ",tb. " + KEY_NUMBER_OF_PAGES + ",tb. "
+                + KEY_RELEASE_YEAR + ", tb. " + KEY_PRICE
+                + ", ti. " + KEY_EMAIL
+                + ", ta. " + KEY_AUTHOR_fNAME + ", ta. " + KEY_AUTHOR_lNAME
+                + ", tl. " + KEY_LANGUAGE_NAME
+                + ", tc. "
+                + KEY_CATEGORY_NAME + " FROM " + TABLE_CART_ITEMS + " ti "
+                + " JOIN " + TABLE_BOOK + " tb " + " ON ti. " + KEY_ITEM_ID + " = tb." + KEY_BOOK_ID
+                + " JOIN " + TABLE_CATEGORY + " tc " + " ON tb. "
+                + KEY_CAT_ID + " = tc." + KEY_CATEGORY_ID
+                + " JOIN " + TABLE_LANGUAGE + " tl " + " ON tb. " + LANGUAGE_ID + " = tl." + KEY_LANGUAGE_ID
+                + " JOIN " + TABLE_AUTHOR + " ta " + " ON tb. " + AUTHOR_ID + " = ta." + KEY_AUTHOR_ID
+                + " WHERE ti. " + KEY_EMAIL + " = '" + user_email + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if(c.moveToFirst()){
+            do{
+                Book b = new Book();
+                byte[] imageBytes = c.getBlob(c.getColumnIndex(KEY_IMAGE));
+                Bitmap objectBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                b.setImage(objectBitmap);
+                b.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                b.setBook_id(c.getInt(c.getColumnIndex(KEY_BOOK_ID)));
+                b.setDesc(c.getString(c.getColumnIndex(KEY_DESC)));
+                b.setNumber_of_pages(c.getInt(c.getColumnIndex(KEY_NUMBER_OF_PAGES)));
+
+                b.setISBN(c.getString(c.getColumnIndex(KEY_ISBN)));
+
+                b.setRelease_year(c.getString(c.getColumnIndex(KEY_RELEASE_YEAR)));
+                b.setPrice(c.getFloat(c.getColumnIndex(KEY_PRICE)));
+                b.setLanguage(c.getString(c.getColumnIndex(KEY_LANGUAGE_NAME)));
+                b.setCategory_name(c.getString(c.getColumnIndex(KEY_CATEGORY_NAME)));
+
+                b.setAuthorFName(c.getString(c.getColumnIndex(KEY_AUTHOR_fNAME)));
+                b.setAuthorLName(c.getString(c.getColumnIndex(KEY_AUTHOR_lNAME)));
+
+                b.setBook_url(c.getString(c.getColumnIndex(KEY_BOOK_CONTENT)));
+
+                //b.setDesc(c.getString(c.getColumnIndex(KEY_DESC)));
+
+
+                books.add(b);
+            }while (c.moveToNext());
+        }
+        c.close();
+        return books;
+
+    }
+
+    /*public void insertBookContent(BookContent bookContent){
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -928,7 +1155,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.close();
         }
         return bookContentArrayList;
-    }
+    }*/
     public void copyDatabaseFromAssets() throws IOException{
         InputStream myInput = mCtx.getAssets().open(DBNAME);
         String outFileName = getDatabasePath();
@@ -964,6 +1191,28 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
         return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.NO_LOCALIZED_COLLATORS | SQLiteDatabase.CREATE_IF_NECESSARY);
+    }
+    public static final String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

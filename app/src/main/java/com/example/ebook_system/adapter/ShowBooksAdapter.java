@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ebook_system.EditBookActivity;
 import com.example.ebook_system.R;
+import com.example.ebook_system.ReadBookActivity;
 import com.example.ebook_system.helper.Book;
 import com.example.ebook_system.helper.DBHelper;
 
@@ -64,6 +65,14 @@ public class ShowBooksAdapter extends RecyclerView.Adapter<ShowBooksAdapter.Show
         //holder.last_updated.setText(book.getLast_updated());
         //holder.created_at.setText(book.getCreated_at());
         //holder.category.setText(Integer.toString(book.getCat_id()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(context, ReadBookActivity.class);
+                intent1.putExtra("BookUrl", bookList.get(position).getBook_url());
+                context.startActivity(intent1);
+            }
+        });
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +89,7 @@ public class ShowBooksAdapter extends RecyclerView.Adapter<ShowBooksAdapter.Show
                 i.putExtra("status", bookList.get(position).getStatus());
                 i.putExtra("rating", bookList.get(position).getRating());
                 i.putExtra("id", bookList.get(position).getBook_id());
+                i.putExtra("BookUrl", bookList.get(position).getBook_url());
 
                 Bitmap bitmap = bookList.get(position).getImage();
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();

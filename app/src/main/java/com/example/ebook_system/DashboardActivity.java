@@ -1,5 +1,6 @@
 package com.example.ebook_system;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,8 +31,11 @@ public class DashboardActivity extends AppCompatActivity {
     DBHelper DB;
     RecyclerView showBooksForUsersRecyclerView, categoryRecyclerView, recentlyViewedRecyclerView;
     ShowBooksForUsersAdapter showBooksForUsersAdapter;
+
     List<Book> bookList1;
-    //List<Category> categoryList1;
+    ImageView view_cart, user_logout;
+    private float totAmt;
+    public static String user_email;
 
     ShowCategoriesForUsersAdapter showCategoryForUsersAdapter;
     List<Category> categoryList;
@@ -38,6 +44,7 @@ public class DashboardActivity extends AppCompatActivity {
     List<RecentlyViewed> recentlyViewedList;
 
     ImageView allCategory;
+    TextView userEmail;
 
 
     @Override
@@ -50,6 +57,37 @@ public class DashboardActivity extends AppCompatActivity {
         categoryRecyclerView = findViewById(R.id.categoryRecycler);
         recentlyViewedRecyclerView = findViewById(R.id.recently_viewed_recycler);
         allCategory = findViewById(R.id.all_category);
+        view_cart=findViewById(R.id.view_cart);
+        userEmail=findViewById(R.id.User_Email);
+        Intent intent1=getIntent();
+        String user_Email = intent1.getStringExtra("email");
+        userEmail.setText("Welcome " + user_Email);
+        user_logout=findViewById(R.id.user_logout);
+        user_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                Toast.makeText(DashboardActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Intent intent = getIntent();
+        user_email = intent.getStringExtra("email");
+        //totAmt = getIntent().getFloatExtra("TotPrice", 0);
+        //Toast.makeText(this, "Tot amt = $" + totAmt, Toast.LENGTH_SHORT).show();
+
+
+        view_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1=new Intent(DashboardActivity.this, AddToCartActivity.class);
+                intent1.putExtra("UserEmail", user_email);
+                startActivity(intent1);
+            }
+        });
+
 
         allCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +96,7 @@ public class DashboardActivity extends AppCompatActivity {
                 //startActivity(i);
             }
         });
+        //showBooksForUsersAdapter = new ShowBooksForUsersAdapter(this, user_email);
 
         //bookList1 = new ArrayList<>();
         //bookList1 = DB.getBooksListForUsers();

@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/login_back"
    >
     <androidx.cardview.widget.CardView
         android:layout_height="wrap_content"
@@ -23,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:padding="8dp"
                 />
             <TextView
@@ -31,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:padding="8dp"
                 />
 
@@ -40,6 +43,7 @@
                 android:layout_height="100dp"
                 android:paddingBottom="2dp"
                 android:scaleType="fitXY"
+                android:background="@color/orange"
                 android:adjustViewBounds="false"
                 android:src="@drawable/ic_mood"
                 />
@@ -49,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#4CAF50"
+                android:backgroundTint="@color/orange"
                 android:text="Edit"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
